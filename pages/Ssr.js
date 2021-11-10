@@ -1,13 +1,17 @@
 import { useState } from "react"
-
+import Images from "../Components/Images"
+import Post from "../Components/Post"
 // get post
 export async function getServerSideProps(){
-    const res = await fetch('https://jsonplaceholder.typicode.com/Posts/2')
+    const postRes = await fetch('https://jsonplaceholder.typicode.com/Posts/2')
         .then(response => response)
+    const post = await postRes.json()
 
-    const post = await res.json()
+    const albumRes = await fetch('https://jsonplaceholder.typicode.com/albums/1/photos')
+    .then(response => response)
+    const album = await albumRes.json()
 
-    return { props: { post }}
+    return { props: { post:post, album:album }}
 }
 
 function Ssr(props) {
@@ -27,9 +31,9 @@ function Ssr(props) {
     <div>
         Ssr
         <div>
+            <Images album={props.album}/>
             <p>{user}</p>
-            <h1>title{props.post.title}</h1>
-            <p>{props.post.body}</p>
+            <Post post={props.post}/>
         </div>
         <button onClick={()=>getUser()}>getUser</button>
     </div>

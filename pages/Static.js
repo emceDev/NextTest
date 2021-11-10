@@ -3,12 +3,15 @@ import { useState } from "react"
 
 // get post
 export async function getStaticProps(){
-    const res = await fetch('https://jsonplaceholder.typicode.com/Posts/1')
+    const postRes = await fetch('https://jsonplaceholder.typicode.com/Posts/2')
         .then(response => response)
+    const post = await postRes.json()
 
-    const post = await res.json()
+    const albumRes = await fetch('https://jsonplaceholder.typicode.com/albums/1/photos')
+    .then(response => response)
+    const album = await albumRes.json()
 
-    return { props: { post }}
+    return { props: { post:post, album:album }}
 }
 
 function Static(props) {
