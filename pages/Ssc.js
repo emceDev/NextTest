@@ -5,4 +5,4 @@ function Ssc() {
     </div>
   }
   
-  export default ssc
+  export default Ssc
